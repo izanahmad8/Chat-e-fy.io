@@ -1,9 +1,11 @@
-const socket = io("http://localhost:8000");
+const socket = io("https://chat-e-fy-io.onrender.com");
 
 const form = document.getElementById('send-container');
 const messageInput = document.getElementById('msginp');
 const container = document.querySelector('.container');
 var audio = new Audio('messenger.mp3');
+
+container.scrollTop = container.scrollHeight;
 
 const getName = () => {
     const currentUrl = window.location.href;
@@ -25,9 +27,11 @@ const initializeChat = async () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const message = messageInput.value;
-            append(`You: ${message}`, 'right');
-            socket.emit('send', message);
-            messageInput.value = '';
+            if (messageInput.value !== '') {
+                append(`Me: ${message}`, 'right');
+                socket.emit('send', message);
+                messageInput.value = '';
+            }
         });
 
         socket.on('receive', data => {
@@ -55,4 +59,5 @@ const append = (message, position) => {
     if (position == 'left') {
         audio.play();
     }
+    container.scrollTop = container.scrollHeight;
 }
