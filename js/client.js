@@ -5,8 +5,6 @@ const messageInput = document.getElementById('msginp');
 const container = document.querySelector('.container');
 var audio = new Audio('messenger.mp3');
 
-container.scrollTop = container.scrollHeight;
-
 const getName = () => {
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
